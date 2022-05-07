@@ -4,6 +4,7 @@ import chalk from "chalk";
 import dotenv from "dotenv";
 
 import authRouter from "./routes/authRouter.js"
+import inAndOutRouter from "./routes/in&OutRouter.js"
 
 dotenv.config();
 
@@ -12,6 +13,7 @@ app.use(cors());
 app.use(json());
 
 app.use(authRouter);
+app.use(inAndOutRouter);
 
 const port = 5000
 
