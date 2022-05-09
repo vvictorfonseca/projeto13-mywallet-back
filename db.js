@@ -4,12 +4,16 @@ import chalk from "chalk";
 
 dotenv.config();
 
-let db = null;
-const mongoClient = new MongoClient(process.env.MONGO_URL);
-const promise = mongoClient.connect();
-promise.then(() => {
-    db = mongoClient.db(process.env.BANCO_MONGO);
-});
-promise.catch( e => console.log(chalk.bold.red(`Deu ruim pra conectar no banco`, e)));
+let db;
+const database = process.env.BANCO_MONGO;
+const client = new MongoClient(process.env.MONGO_URL);
+
+try {
+    await client.connect();
+    db = client.db(database);
+} catch (error) {
+    console.log(chalk.bold.red("error to connect", error));
+}
+
 
 export default db;

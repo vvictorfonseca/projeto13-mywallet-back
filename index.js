@@ -15,8 +15,8 @@ app.use(json());
 app.use(authRouter);
 app.use(inAndOutRouter);
 
-const port = 5000
+const port = 5000;
 
-app.listen( 3500, () => {
+app.listen( port, () => {
     console.log(chalk.bold.green(`Server is good to go on ${port}`))
 });
