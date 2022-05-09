@@ -11,7 +11,7 @@ async function validNewInsert(req, res, next){
     const newInsert = Joi.object(
         {
             value: Joi.string().required().pattern(regex),
-            description: Joi.string().min(3).max(15).required(),
+            description: Joi.string().min(3).required(),
             type: Joi.valid("income", "outcome").required()
         }
     )

@@ -15,5 +15,4 @@ try {
     console.log(chalk.bold.red("error to connect", error));
 }
 
-
 export default db;

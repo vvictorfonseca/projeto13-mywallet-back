@@ -27,8 +27,6 @@ async function signUp(req, res) {
 async function signIn(req, res) {
     const { email } = req.body
 
-
-
     try{
         const user = await db.collection("users").findOne({email: email});
         const token = uuid()
@@ -45,4 +43,30 @@ async function signIn(req, res) {
     }
 }
 
-export {signUp, signIn};
+async function logoutUser(req,res){
+
+    const {authorization} = req.headers;
+    const token = authorization?.replace('Bearer ','').trim();
+
+    if(!token) {
+        return res.status(401).send("No Token")
+    }
+
+    try{
+        
+        const session = await db.collection("sessions").findOne({token});
+        if(!session) return res.sendStatus(404)
+        
+        
+        const user = await db.collection("users").findOne({_id:session.userId});
+        if(!user) return res.sendStatus(401);
+
+        await db.collection("sessions").updateOne({userId: new ObjectId(user._id)},{$set:{token:""}});
+        res.sendStatus(204)  
+    
+    }catch (e){
+        console.log(e)
+    }
+}
+
+export {signUp, signIn, logoutUser};

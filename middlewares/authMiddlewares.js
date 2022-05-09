@@ -72,8 +72,6 @@ async function validJoiSignIn(req, res, next){
 
     const {error} = newSignIn.validate(req.body, { abortEarly: false });
 
-    console.log(error)
-
     if(error){
         return res.status(402).send("Preencha os campos corretamente!")
     }
